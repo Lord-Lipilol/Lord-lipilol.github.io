@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Solving Remote Control Car</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        section {
+            margin-top: 20px;
+	    max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            color: #fff;
+        }
+
+        h2 {
+            color: #007BFF;
+        }
+
+        p {
+            color: #333;
+            line-height: 1.5;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Maze Solving Remote Control Car</h1>
+    </header>
+
+    <section>
+        <h2>About the Project</h2>
+        <p>
+            he Maze Solving Remote Control (RC) Car Project explores the exciting realm of autonomous vehicles, commonly known as self-driving cars. In the era of rapidly advancing technology, these vehicles represent a groundbreaking innovation, leveraging artificial intelligence, sensors, and intricate algorithms to navigate roads without direct human intervention.
+        </p>
+        <p>
+            Our project revolves around making a compact electrically powered vehicle capable of autonomously navigating through a maze. As a first step, we wanted to see if our car would be able to solve a maze made of one path with a couple of turns. When discussing what algorithms would be necessary for our RC car to solve the maze, we determined that it was highly dependent on the nature of the course, i.e., how long the straights are and the angle of the corners. We also had limitations as to the available space we had to make our setup. The maze was therefore designed to contain only straights and 90 degree turns and would occupy the greatest amount of space that was available at one of our residences. The maze was thus set up with vertical walls made from cardboard that were at least 12 inches off the ground (Figure 1).  
+        </p>
+	 <div class="image-container1">
+            <img src="C:\Users\ivank\Desktop\Gihub images\maze picture.jpg" alt="Maze Image">
+            <img src="C:\Users\ivank\Desktop\Gihub images/maze schema.jpg" alt="Maze schema">
+        </div>
+	<style>
+    /* Style for the image container */
+    	.image-container1 {
+        	display: flex;
+        	justify-content: space-between; /* Adjust as needed */
+        	margin-top: 10px; /* Adjust as needed */
+    }
+
+    /* Style for individual images */
+   	.image-container1 img {
+        	width: 48%; /* Adjust as needed */
+        	max-width: 100%; /* Ensure images don't exceed container width */
+    }
+	</style>
+
+
+
+	<p>
+	    The maze width was at least 24 inches at all instances. The floor was not ideal for our demonstration as it was made from stamped concrete blocks, making the surface rough and uneven in some locations with some blocks set slightly higher than others. This would turn out detrimental to our overall success running our RC car (discussed below). 
+	</p>
+	<p>
+	   In tandem with designing the maze, we then went forward with designing our RC car. 
+	</p>
+
+
+    </section>
+    <section>
+
+	<h2>RC Car</h2>
+	<p>
+	One of our overarching goals for this project was to create a product that was interesting for both of us, utilized primarily actors and sensors that were already available to us from previous labs in the class, and for it to be inexpensive to construct. One of the driving factors in conceiving the proposal for this project was our successful implementation of PID control of the previously available DC motor with encoder with the Pololu wheel kit attached to it in an earlier lab. From there, we sought to be unique, with many other examples of RC cars already existing on the internet. We then proposed the idea of making an automated maze solving RC car that would solve a maze made of vertical walls. Given we also had to utilize the myRIO microcontroller, our RC car design is something else that makes our project unique from others found on the internet. 
+	</p>
+	
+	<p>
+	The RC car proposal allowed us to fulfill one of our assignment requirements, that being exploring an advanced topic or a topic that we had not covered previously in the course. Wireless communication with our project, and it counted as our advanced topic. After some research on how to implement WIFI communication with the myRIO, we successfully configured one of our two available microcontrollers with its own password protected network (Figure 2).
+	</p>
+
+
+    </section>
+
+    <section>
+        <h2>Components</h2>
+        <ul>
+            <li>MyRio</li>
+            <li>12V Battery Pack</li>
+            <li>Laser Cut Chassis</li>
+            <li>Two DC Motors and Wheels</li>
+            <li>Servo Motor</li>
+            <li>Compass</li>
+            <li>LIDAR Sensor</li>
+        </ul>
+	<p>
+	We then needed to determine what sensors we wanted to use. We decided a good method to determine RC location and orientation was to use the Digilent Pmod CMPS2 3-axis compass, having had success implementing the sensor in an earlier lab. To be able to detect and potentially map the vertical walls of our maze, we knew we needed some sort of distance measuring sensor. We knew that LIDAR sensors were already used in autonomous vehicles, but the price of even the cheapest “true” LIDAR sensor, meaning using laser wavelengths to measure distance, was too great. The range was also not ideal, with some sensors we were consider working with had a minimum detection distance of 1 m and going up to 40 m or more. We then found the TF-Luna LiDAR Range Sensor from Benweke with our research. Although it uses 850nm infrared light and not laser wavelengths, its smaller cost and suitable detection range of 20 cm to 8 m was enough for us to propose the sensor to be purchased, and it was.
+	</p>
+	<p>
+	To give our LiDAR sensor movement capabilities in order to be able to scan its environment while stationary, we used a GWS S03N STD servo motor. We determined from a previous lab that supplying duty cycles between 0.3 and 1.0 then dividing that value by 0.13 would give the servo 180 degrees of precise positioning capabilities. Thus, to get 1 degree resolution out of the servo’s range, we took the range of 0.7 and divided it by 180 equating to 0.00389. Then adding a certain multiple of 0.00389 to 0.3 and then dividing by 0.13 would instruct the servo to move to its corresponding angle. To the naked eye, we can identify the servo move at each new duty cycle sent to it with this method. Our second actor type used for this project were the two 12V DC motors from Sha Yang Ye Industrial Co. used to drive our RC along the ground.
+	</p>
+	<p>
+	With our essential components for our project identified, we then proceeded to design an RC that would be able to hold our myRIO, power sources, sensors, actors and circuits. Using CAD software, specifically SolidWorks, it was easier to determine the spacing of all of our components as we made our design. We then decided to go with a laser cut chassis, motor mounts, and servo mounts made from 1/8 in. thick acrylic having had experience using this technique in a past research experience. A caster wheel was ordered from Pololu, and standoffs, angles brackets, nuts and bolts purchased from McMaster Carr. Careful attention to detail was given in designing the RC so that the caster wheel and Pololu wheels were level. Figure 3 shows our CAD design and final project construction.  
+	</p>
+	<div class="image-container2">
+            <img src="C:\Users\ivank\Desktop\Gihub images/car cad.jpg" alt="Image 3">
+            <img src="C:\Users\ivank\Desktop\Gihub images/car image.jpg" alt="Image 4">
+        </div>
+	<style>
+    /* Style for the image container */
+    	.image-container2 {
+        	display: flex;
+        	justify-content: space-between; /* Adjust as needed */
+        	margin-top: 10px; /* Adjust as needed */
+    }
+
+    /* Style for individual images */
+   	.image-container2 img {
+        	width: 48%; /* Adjust as needed */
+        	max-width: 100%; /* Ensure images don't exceed container width */
+    }
+	</style>
+
+
+
+
+
+    </section>
+
+    <section>
+        <h2>How the System Works</h2>
+        <p>
+            The vehicle is powered by a 12V battery case. The first step for the car is the initialization process. The car checks that every sensor it has (Compass, LIDAR) operates smoothly. After the initialization process, the car will scan the environment in front of it. It accomplishes this by performing a 180-degree sweep with the LIDAR attached to a servo motor. Once the LIDAR finishes scanning, the car then determines whether it should go straight or turn 90 degrees left or right. The car starts to move forward at a constant speed regulated by a PID controller. It continues until the LIDAR detects an object at a distance of 25 cm. The car then stops and repeats the entire process, from scanning to deciding where to go and moving forward, until another obstacle is encountered. 
+        </p>
+
+        <section>
+            <h2>State Machine Diagram</h2>
+            <p>
+                <!-- Insert your State Machine Diagram image or description here -->
+                [State Machine Diagram]
+            </p>
+        </section>
+    </section>
+
+    <section>
+        <h2>Technical Requirements</h2>
+        <p>
+            To achieve the goals of the Maze Solving Car Project, the following technical requirements were identified:
+        </p>
+   
+    </section>
+
+    <section>
+        <h2>Problems Encountered</h2>
+           <p>
+            These challenges included:
+        </p>
+        <ul>
+            <li>The compass measurements were too noisy, mitigated by implementing a mean filter. Similar measures were taken for the encoders on the DC motors.</li>
+            <li>The motors drained so much power that it caused a voltage drop, addressed by adding a voltage regulator.</li>
+            <li>After scanning the environment of the car with the LIDAR, determining in which direction the car should go posed a challenge.</li>
+            <li>The compass proved sensitive to the magnetic field generated by the rest of the circuit. Fixing it the farthest possible from other electronic components helped solve the problem.</li>
+        </ul>
+        <!-- Add more details about other encountered problems if needed -->
+    </section>
+
+    <section>
+        <h2>Demonstration</h2>
+        <p>
+            <!-- Insert videos for demonstration -->
+            [Video 1]
+            [Video 2]
+        </p>
+    </section>
+
+    <section>
+        <h2>Potential Steps</h2>
+        <p>
+            Throughout this final project, we gained valuable experience in integrating various actuators and sensors to create a cohesive system. The process of combining these elements posed unexpected challenges, particularly in instances where the activation of certain components had broader implications on the entire circuit. For instance, the operation of motors led to issues such as voltage drops in the circuit, requiring careful consideration and problem-solving.
+        </p>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Your Project Name. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
