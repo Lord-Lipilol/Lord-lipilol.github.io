@@ -108,7 +108,7 @@
             <li>6 & 12 V Battery Packs</li>
             <li>1/8 inch thick laser cut chassis, motor mounts, caster wheel mount, servo mount, and lidar mount</li>
             <li>Two DC Motors SKU 290-006 with encoders</li>
-	    <li>Two pololu wheels and mounting kits<li> 
+	    <li>Two pololu wheels and mounting kits</li> 
             <li>Servo Motor S03TXF STD</li>
             <li>Compass PMOD CMPS2</li>
             <li>LIDAR Sensor MakerFocus TF-Luna</li>
@@ -200,8 +200,14 @@
     <section>
         <h2>Problems Encountered</h2>
            <p>
-            These challenges included:
+            We encountered several challenges as we worked to complete our project. Our biggest gripe is with the unreliable readouts the CMPS2 compass would give out at certain times. Having had successfully utilized this specific compass in a previous class lab assignment, we were confident in its abilities. Perhaps we failed ot initialize the compass correctly with the increased sampling rates necessary for our code, but the unrealiable spikes in error were detrimental to our ability of turning to the correct angle with the RC car.
         </p>
+	    <p>
+		Also, we encountered unexpected spikes in wheel speed the second and subsequent times our code returned to the move forward state. In this state, we utilized a control and simulation subsystem to build our PID controller for wheel speed, but it almost appeared as if the system would continue to accumulate error when the code was running in other states. This accumulation in error would cause an undesired initial spike in speed before the PID could return the speed under control. We were beginning to pinpoint potential solutions to this problem, one potential solution was by adding a boolean control to our front panel that would send a FALSE boolean to the "initialize" input of the subsystem. This was difficult to deal with in RC runs, as we had to manually turn on and off the control when the RC left and returned to the move forward state. Further research into understanding where this accumulation of error is coming from is needed.
+	    </p>
+	    <p>
+		Finally, given our limited options as to where we can build a maze to demo on, we opted to use the outdoor porch of one of our residencies. This proved to be detrimental, as the porch's floor was made of slightly uneven, stamped concrete blocks. This surface did not allow our RC to run in a straight line and be able to complete its turns in a timely manner. More work had to be done to smooth out the surface for better RC runs. 
+	    </p>
         <ul>
             <li>The compass measurements were too noisy, mitigated by implementing a mean filter. Similar measures were taken for the encoders on the DC motors.</li>
             <li>The motors drained so much power that it caused a voltage drop, addressed by adding a voltage regulator.</li>
